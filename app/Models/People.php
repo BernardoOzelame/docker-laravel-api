@@ -9,7 +9,7 @@ class People extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $fillable = [ // importante para descartar outros campos que não são necessários (como tokens, por exemplo)
         'name',
         'email',
         'address',
@@ -19,5 +19,8 @@ class People extends Model
         'birthDate'
     ];
 
+    public function interests() {
+        return $this->hasMany(Interests::class);
+    }
     
 }
