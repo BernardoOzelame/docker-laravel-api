@@ -20,7 +20,7 @@ class People extends Model
     ];
 
     public function interests() {
-        return $this->hasMany(Interests::class);
+        return $this->hasMany(Interests::class); // retorna de 1 para MUITOS
     }
     
 }
