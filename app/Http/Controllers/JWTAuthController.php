@@ -39,15 +39,26 @@ class JWTAuthController extends Controller {
             }
 
             // se chegou aqui, deu certo!
-            $user = auth()->user();
+            $user = auth()->user(); // pode ser JWTAuth::user();
 
             // no caso de atribuição de um papel para um usuário (admin, editor, gerente, ...)
             // $token = JWTAuth::claims(['role' => $user->role])->fromUser($user);
             $token = JWTAuth::fromUser($user);
-            return response()->json(compact('token'));
+            return response()->json([
+                compact('token')
+            ]);
         
         } catch (JWTException $e) {
-            return response()->json(['error' => 'Erro interno!'], 500);
+            return response()->json([
+                'error' => 'Erro interno!'
+            ], 500);
         }
+    }
+
+    public function logout() {
+        JWTAuth::invalidate(JWTAuth::getToken());
+        return response()->json([
+            'message' => 'Deslogado com sucesso!'
+        ]);
     }
 }
